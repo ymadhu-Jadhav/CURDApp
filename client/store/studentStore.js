@@ -23,6 +23,9 @@ export const editStudent = student => ({type: EDIT_STUDENT, student });
 export const addStudent = student => ({type: ADD_STUDENT, student});
 export const deleteStudent = id => ({type: DELETE_STUDENT, id});
 
+
+
+
 /**
  * THUNK CREATORS
  */
@@ -33,7 +36,9 @@ export const allStudentsThunk = () =>
       dispatch(getStudents(res.data || currentStudents)))
     .catch(err => console.log(err));
 
-export const updateStudentThunk = (id,student) => dispatch => {
+    
+export const updateStudentThunk = (id,student) => 
+dispatch => {
   console.log(student);
   console.log(id);
   return axios.put(`/api/students/${id}`, student)
@@ -43,8 +48,8 @@ export const updateStudentThunk = (id,student) => dispatch => {
   .catch(err => console.log(err))
 }
 
-
-export const addStudentThunk = (newStudent) => dispatch => { 
+export const addStudentThunk = (newStudent) =>
+ dispatch => { 
   axios.post('/api/students', newStudent)
   .then(res => {
     dispatch(addStudent(res.data))
@@ -79,8 +84,11 @@ export default function (state = currentStudents, action) {
     case ADD_STUDENT:
       return [...state, action.student]
     case DELETE_STUDENT:
-      return state.filter(student => student.id !== action.id)
+      return state.filter(student => student.id !== action.student.id)
     default:
       return state
   }
 }
+
+
+

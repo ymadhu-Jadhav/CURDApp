@@ -38,7 +38,7 @@ class AddStudent extends Component {
     event.preventDefault();
 
     if (this.state.firstName.length === 0) {
-      this.setState({firstNameerror: "firstName is can't be empty"});
+      this.setState({firstNameerror: "firstName cannot be empty"});
       return;
     }
   
@@ -81,7 +81,7 @@ render() {
             </tr>
             </table>
             <div>
-                    <button type="submit">updte</button>
+                    <button type="submit">update</button>
             </div>
   </form>  
 </div>

@@ -14,21 +14,31 @@ class EditStudent extends Component {
       lastName: this.props.student.lastName,
       email: this.props.student.email
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.emailHandleChange = this.emailHandleChange.bind(this);
+    this.firstnameHandleChange = this.firstnameHandleChange.bind(this);
+    this.lastnameHandleChange = this.lastnameHandleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
    
   }
-  handleChange(event) {
+  emailHandleChange(event) {
     console.log(event.target.value);
     this.setState({email: event.target.value});
   }
 
+  firstnameHandleChange(event) {
+    console.log(event.target.value);
+    this.setState({firstName: event.target.value});
+  }
+
+  lastnameHandleChange(event){
+    this.setState({lastName: event.target.value});
+  }
+
   handleSubmit(event) {
-    console.log("In handleSubmit");
+    //console.log("In handleSubmit");
     event.preventDefault();
     const id = this.props.studentId;
-    console.log("In handleSubmit"+id);
-   
+    //console.log("In handleSubmit"+id);
     const studentInfo = {
       id: this.state.id,
       firstName: this.state.firstName,
@@ -38,7 +48,6 @@ class EditStudent extends Component {
     };
 
     console.log(studentInfo);
-
     this.props.editStudentInfo(id, studentInfo);
   }
 
@@ -50,7 +59,7 @@ render() {
   return (
   <div>
   <h3>All Students</h3>
-  <form className="form-group" onSubmit={(eve) => this.handleSubmit(eve)}> 
+  <form className = "form-group" onSubmit = {(eve) => this.handleSubmit(eve)}> 
             <table className = 'table' >
             <tr>
                 <td>Student Id : </td>    
@@ -58,7 +67,7 @@ render() {
             </tr>
             <tr>
                 <td>Student FirstName : </td>    
-                <td>{this.state.firstName }</td>
+                <td><input type="text" name="firstName" value={this.state.firstName} onChange={this.firstnameHandleChange}/></td>
             </tr>
             <tr>
                 <td>Student LastName : </td>    
@@ -66,11 +75,11 @@ render() {
             </tr>
             <tr>
                 <td>Student Email : </td>    
-                <td><input type="text" name="email" value={this.state.email} onChange={this.handleChange}/></td>
+                <td><input type="text" name="email" value={this.state.email} onChange={this.emailHandleChange}/></td>
             </tr>
             </table>
             <div>
-                    <button type="submit">updte</button>
+                    <button type="submit">update</button>
             </div>
             <button onClick={() => this.props.removeStudent(this.state.id)}>
           Delete 
@@ -98,6 +107,7 @@ const mapStateToProps = (state,ownProps) => {
 }
 
 //Using return 
+
 // const mapDispatchToProps = (dispatch,ownProps) => {
 //   return {
 //     editStudentInfo: (id,studentInfo) => dispatch((updateStudentThunk(id,studentInfo)))

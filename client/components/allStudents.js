@@ -8,8 +8,8 @@ class AllStudents extends Component {
     super(props);
   }
   componentDidMount() {
-    console.log("componentDidMount");
     this.props.fetchAllStudents();
+
   }
 
 render() {
@@ -30,13 +30,16 @@ render() {
       <tbody>
         {
           students.map(student => (
-            <tr key={student.id}>
+            <tr 
+             key={student.id}>
             <td>{student.id }</td>
             <td>{student.firstName }</td>
             <td>{student.lastName }</td>
             <td>{student.email }</td>
             <td><Link to={`/students/${student.id}`} className="textColor">Edit</Link></td>
+            
           </tr>
+          
           ))
         }
       </tbody>
@@ -50,22 +53,26 @@ render() {
 
  }
 
-const mapStateToProps = (state,ownProps) => {
+const mapStateToProps = (state) => {
   return {
     students: state.studentStore
   
   }
 }
-
-// const mapDispatchToProps = (dispatch,ownProps) => {
+//ES5
+// const mapDispatchToProps = function (dispatch){
 //   return {
-//     fetchAllStudents: () => dispatch(allStudentsThunk())
+//     fetchAllStudents (){
+  //dispatch(allStudentsThunk())
+//}
 //   }
 // }
 
-const mapDispatchToProps = (dispatch,ownProps) => ({
-      fetchAllStudents: () => dispatch(allStudentsThunk())
-  })
+const mapDispatchToProps = (dispatch) => (
+  {fetchAllStudents: () => dispatch(allStudentsThunk())}
+)
+
+
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AllStudents));
 
